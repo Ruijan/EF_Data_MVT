@@ -15,7 +15,7 @@ export class CodeHistoryService {
     this.actions.forEach(action => {
       action["datetime"] = new Date(action["datetime"]);
     })
-    console.log(this.actions);
+    this.currentActionContent = this.actions.length > 0 ? this.actions[this.actions.length-1] : '';
   }
 
   startNewAction(actionType: string): void{
@@ -28,10 +28,19 @@ export class CodeHistoryService {
       'datetime': new Date(),
       'parent': this.actions.length > 0 ? this.actions[this.actions.length-1]['id']: '',
       'type': this.currentActionType,
-      'code-content': this.actions.length > 0 ? this.actions[this.actions.length-1]['code-content'] : ''
+      'code-content': this.actions.length > 0 ? this.actions[this.actions.length-1]['code-content'] : '',
+      'finished': false
     }
     this.actions.push(this.currentActionContent);
     this.hasActionStarted = true;
+  }
+
+  finishAction(codeContent: string){
+    this.currentActionContent["code-content"] = codeContent;
+    this.currentActionContent["finished"] = true;
+    this.hasActionStarted = false;
+    this.currentActionType = '';
+
   }
 }
 

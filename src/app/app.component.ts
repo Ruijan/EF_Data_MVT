@@ -11,7 +11,7 @@ export class AppComponent {
   isCodeCollapsed = false;
   isDataCollapsed = true;
   isDocumentationCollapsed = false;
-  view: string = 'history';
+  view: string = 'code';
 
     show(view: string){
       if(view == 'history'){

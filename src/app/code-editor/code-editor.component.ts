@@ -47,7 +47,8 @@ export class CodeEditorComponent {
     private sanitizer: DomSanitizer,
     public codeHistoryManager: CodeHistoryService
   ) {
-    this.codeModel.value = this.codeHistoryManager.currentActionContent ? this.codeHistoryManager.currentActionContent['code-content'] : '';
+    this.codeModel.value = this.codeHistoryManager.actions.length > 0 ? this.codeHistoryManager.currentActionContent['code-content'] : '';
+    console.log(Object.keys(this.codeHistoryManager.currentActionContent));
   }
 
   onCodeChanged(value: any) {
@@ -107,18 +108,18 @@ export class CodeEditorComponent {
   }
 
   validateStepCode() {
-    this.codeHistoryManager.currentActionContent["code-content"] = this.codeModel.value;
+
     this.showSuccessfulRun = false;
     if (this.codeHistoryManager.currentActionType == 'hypothesis') {
       this.showResultHypothesis = true;
     } else {
-      this.codeHistoryManager.hasActionStarted = false;
-      this.codeHistoryManager.currentActionType = '';
+      this.codeHistoryManager.finishAction(this.codeModel.value);
     }
   }
 
   validateHypothesisResults() {
     this.codeHistoryManager.currentActionContent["results"] = this.resultsForm.value["results"];
+    this.codeHistoryManager.finishAction(this.codeModel.value);
     const blob = new Blob([JSON.stringify(this.codeHistoryManager.actions, null, "\t")], {type: 'application/octet-stream'});
     this.fileURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     this.codeHistoryManager.hasActionStarted = false;

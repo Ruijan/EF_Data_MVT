@@ -16,12 +16,10 @@
           {{action['type']}} - {{action['id']}}
         </div>
         <div class="card-body text-left" >
-          <h5 *ngIf="action['type'] == 'hypothesis'">{{action["name"]}}</h5>
-          <div *ngIf="action['type'] == 'hypothesis'">
-
+          <h5 *ngIf="action['type'] == 'hypothesis' || action['type'] == 'processing'">{{action["name"]}}</h5>
+          <div *ngIf="action['type'] == 'hypothesis' || action['type'] == 'processing'">
             <strong>Description:</strong> {{action['description']}}<br/>
-            <strong>Results:</strong> {{action['results']}}
-
+            <span *ngIf="action['type'] == 'hypothesis'"><strong>Results:</strong> {{action['results']}}</span>
           </div>
           <hr>
           <span class="form-text">{{action["datetime"].toISOString()}}</span>

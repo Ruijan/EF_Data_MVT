@@ -25,11 +25,11 @@
 <div class="card hide" id="code_results" [ngbCollapse]="!showResultHypothesis">
   <div class="card-body">
     <h5 class="card-title">Results</h5>
-    <form [formGroup]="hypothesisForm">
+    <form [formGroup]="resultsForm">
       <div class="mb-3">
         <label for="exampleInputHypothesisResults" class="form-label">Describe your results</label>
         <input type="email" class="form-control" id="exampleInputHypothesisResults"
-               aria-describedby="hypothesisHelp" formControlName="name">
+               aria-describedby="hypothesisHelp" formControlName="results">
         <div id="hypothesisResultsHelp" class="form-text">Please describe in length your results</div>
       </div>
     </form>
