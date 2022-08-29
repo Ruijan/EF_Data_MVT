@@ -1,0 +1,103 @@
+<nav class="navbar bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="#" (click)="runCode()">
+      <i class="bi bi-play"></i>
+    </a>
+    <a class="navbar-brand" [href]="fileURL" download="analysisHistory.json">
+      <i class="bi bi-save"></i>
+    </a>
+  </div>
+</nav>
+<div class="card hide" id="code_run" [ngbCollapse]="!showSuccessfulRun">
+  <div class="card-body">
+    <h5 class="card-title">Code run successfully</h5>
+    <div *ngIf="this.codeHistoryManager.hasActionStarted">
+      Are you done <span
+      *ngIf="this.codeHistoryManager.currentActionType == 'hypothesis'">testing your new hypothesis?</span>
+      <span *ngIf="this.codeHistoryManager.currentActionType == 'loading'"> loading new data?</span>
+      <span *ngIf="this.codeHistoryManager.currentActionType == 'refactoring'"> refactoring your code?</span>
+      <span *ngIf="this.codeHistoryManager.currentActionType == 'processing'"> adding a new data processing step in your analysis?</span>
+      <div class="btn btn-outline-info m-1" (click)="validateStepCode()">Yes</div>
+      <div class="btn btn-outline-info m-1" (click)="hideMessages();">No</div>
+    </div>
+  </div>
+</div>
+<div class="card hide" id="code_results" [ngbCollapse]="!showResultHypothesis">
+  <div class="card-body">
+    <h5 class="card-title">Results</h5>
+    <form [formGroup]="hypothesisForm">
+      <div class="mb-3">
+        <label for="exampleInputHypothesisResults" class="form-label">Describe your results</label>
+        <input type="email" class="form-control" id="exampleInputHypothesisResults"
+               aria-describedby="hypothesisHelp" formControlName="name">
+        <div id="hypothesisResultsHelp" class="form-text">Please describe in length your results</div>
+      </div>
+    </form>
+    <div class="btn btn-outline-info m-1" (click)="validateHypothesisResults()">Validate</div>
+  </div>
+</div>
+<div class="card hide" id="info" [ngbCollapse]="!showMessage">
+  <div class="card-body">
+    <h5 class="card-title">New action?</h5>
+    We noticed you started adding some new code. What describes best what you are trying to
+    do?
+  </div>
+  <div class="btn btn-outline-info m-1" (click)="addNewStep('hypothesis')">Testing new hypothesis</div>
+  <div class="btn btn-outline-info m-1" (click)="addNewStep('processing')">Add new processing step</div>
+  <div class="btn btn-outline-info m-1" (click)="addNewStep('loading')">Loading data</div>
+  <div class="btn btn-outline-info m-1" (click)="addNewStep('refactoring')">Refactoring</div>
+  <div class="btn btn-outline-info m-1" (click)="addNewStep('none')">Fidgeting with the code</div>
+</div>
+<div class="card hide" id="hypothesisName" [ngbCollapse]="isHypothesisCollapsed">
+  <div class="card-body">
+    <h5 class="card-title">Hypothesis description</h5>
+    <form [formGroup]="hypothesisForm">
+      <div class="mb-3">
+        <label for="exampleInputHypothesisName" class="form-label">Short Hypothesis Name</label>
+        <input type="email" class="form-control" id="exampleInputHypothesisName"
+               aria-describedby="hypothesisHelp" formControlName="name">
+        <div id="hypothesisHelp" class="form-text">Please describe your hypothesis in a few words</div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputHypothesisDescription" class="form-label">Description</label>
+        <textarea type="email" class="form-control" id="exampleInputHypothesisDescription"
+                  aria-describedby="hypothesisDescriptionHelp" formControlName="description"></textarea>
+        <div id="hypothesisDescriptionHelp" class="form-text">Please describe your hypothesis: variable tested,
+          processes etc.
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-outline-primary m-1" (click)="addNewHypothesis()">Validate</button>
+    <div class="btn btn-outline-danger m-1" (click)="showActionMessage()">Cancel</div>
+  </div>
+</div>
+<div class="card hide" id="processingName" [ngbCollapse]="isProcessingCollapsed">
+  <div class="card-body">
+    <h5 class="card-title">Processing description</h5>
+    <form [formGroup]="processingForm">
+      <div class="mb-3">
+        <label for="exampleInputHypothesisName" class="form-label">Short Processing Step Name</label>
+        <input type="email" class="form-control" id="exampleInputProcessingName"
+               aria-describedby="processingHelp" formControlName="name">
+        <div id="processingHelp" class="form-text">Please describe your new processing step in a few words</div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputHypothesisDescription" class="form-label">Description</label>
+        <textarea type="email" class="form-control" id="exampleInputProcessingDescription"
+                  aria-describedby="processingDescriptionHelp" formControlName="description"></textarea>
+        <div id="processingDescriptionHelp" class="form-text">Please describe your new processing step: math, signal
+          processing, etc.
+        </div>
+      </div>
+    </form>
+    <button class="btn btn-outline-primary m-1" (click)="addNewProcessingStep()">Validate</button>
+    <div class="btn btn-outline-danger m-1" (click)="showActionMessage()">Cancel</div>
+  </div>
+</div>
+<ngs-code-editor
+  [theme]="theme"
+  [codeModel]="codeModel"
+  [options]="options"
+  (valueChanged)="onCodeChanged($event)">
+</ngs-code-editor>
+

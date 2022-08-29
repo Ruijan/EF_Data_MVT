@@ -1,0 +1,65 @@
+<div class="container">
+
+  <div class="row align-items-start">
+
+    <div class="col-2 p-3 bg-white">
+      <h2>Data Platform</h2>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <button class="btn btn-toggle align-items-center rounded collapsed"
+                  (click)="isCodeCollapsed = !isCodeCollapsed"
+                  [attr.aria-expanded]="!isCodeCollapsed" aria-controls="codeCollapse">
+            Code
+          </button>
+          <div class="collapse show" id="codeCollapse" [ngbCollapse]="isCodeCollapsed">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li class="pl-4"><a class="text-decoration-none" href="#" (click)="show('code')"><strong>pupil_analysis.py</strong></a></li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <button class="btn btn-toggle align-items-center rounded collapsed"
+                  (click)="isDataCollapsed = !isDataCollapsed"
+                  [attr.aria-expanded]="!isDataCollapsed" aria-controls="dataCollapse">
+            Data
+          </button>
+          <div class="hide" id="dataCollapse" [ngbCollapse]="isDataCollapsed">
+            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+              <li class="pl-4"><img src="https://cdn-icons-png.flaticon.com/512/6133/6133884.png" width="15px">
+                PupilSize.csv
+              </li>
+              <li class="pl-4"><img
+                src="https://iconape.com/wp-content/files/gv/370756/svg/couchdb-icon-logo-icon-png-svg.png"
+                width="15px"> Behavior.json
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-toggle align-items-center rounded collapsed"
+                  (click)="isDocumentationCollapsed = !isDocumentationCollapsed"
+                  [attr.aria-expanded]="!isDocumentationCollapsed" aria-controls="documentationCollapse">
+            Documentation
+          </button>
+          <div class="show" id="documentationCollapse" [ngbCollapse]="isDocumentationCollapsed">
+            <ul class="list-unstyled ps-0">
+              <li class="pl-4"><a class="text-decoration-none" href="#" (click)="show('history')"><img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQeCQYYNUQUYMn8yUeRjEWPvZZ-mxp_4ln32dlMA&s"
+                width="15px"> History</a></li>
+              <li class="pl-4"><a class="text-decoration-none" href="#"><img
+                src="https://www.freeiconspng.com/thumbs/report-icon/call-report-icon-3.png" width="15px"> Report</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          About
+        </li>
+      </ul>
+    </div>
+    <app-code-editor class="col container-fluid" *ngIf="view == 'code'"></app-code-editor>
+    <app-history class="col container-fluid" *ngIf="view == 'history'"></app-history>
+  </div>
+</div>

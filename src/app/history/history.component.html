@@ -1,0 +1,32 @@
+<div>
+  <h1>List of analysis steps</h1>
+</div>
+<div>
+  <div class="d-inline-block"*ngFor="let action of codeHistoryManager.actionTypes" (click)="addSelectedType(action)">
+    <div class="btn m-1"
+         [ngClass]="{'btn-primary': selectedActionTypes.includes(action), 'btn-outline-primary': !selectedActionTypes.includes(action)}">{{action}}</div>
+  </div>
+
+</div>
+<div class="container text-center">
+  <div class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
+    <div class="" *ngFor="let action of getSelectedActions()">
+      <div class="card m-1" *ngIf="isActionTypeSelected(action['type'])" [ngClass]="">
+        <div class="card-header">
+          {{action['type']}} - {{action['id']}}
+        </div>
+        <div class="card-body text-left" >
+          <h5 *ngIf="action['type'] == 'hypothesis'">{{action["name"]}}</h5>
+          <div *ngIf="action['type'] == 'hypothesis'">
+
+            <strong>Description:</strong> {{action['description']}}<br/>
+            <strong>Results:</strong> {{action['results']}}
+
+          </div>
+          <hr>
+          <span class="form-text">{{action["datetime"].toISOString()}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
